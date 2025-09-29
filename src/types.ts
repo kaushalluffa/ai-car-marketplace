@@ -165,3 +165,25 @@ export interface APIPagination {
   limit: number;
   pages: number;
 }
+
+export interface APIDealership {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+  workingHours: WorkingHour[];
+}
+
+export interface WorkingHour {
+  id: string;
+  dealershipId: string;
+  dayOfWeek: DayOfWeek;
+  openTime: string;
+  closeTime: string;
+  isOpen: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
