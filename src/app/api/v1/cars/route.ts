@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { serializeCarData } from "@/lib/helper";
-import { Car } from "@/types";
 
 export async function GET(request: Request) {
   try {
@@ -20,12 +19,18 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get("limit") || "6") || 6;
 
     // Get current user if authenticated
-    const { userId } = await auth();
+    const { isAuthenticated } = await auth();
     let dbUser = null;
+    // Protect the route by checking if the user is signed in
+    if (!isAuthenticated) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+    // Use `currentUser()` to get the Backend API User object
+    const user = await currentUser();
 
-    if (userId) {
+    if (isAuthenticated && user) {
       dbUser = await db.user.findUnique({
-        where: { clerkUserId: userId },
+        where: { clerkUserId: user.id },
       });
     }
 
@@ -125,16 +130,21 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const { userId } = await auth();
-    if (!userId) {
+      const { isAuthenticated } = await auth();
+      let dbUser = null;
+    if (!isAuthenticated) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    // Use `currentUser()` to get the Backend API User object
+    const user = await currentUser();
 
-    const user = await db.user.findUnique({
-      where: { clerkUserId: userId },
-    });
+    if (isAuthenticated && user) {
+      dbUser = await db.user.findUnique({
+        where: { clerkUserId: user.id },
+      });
+    }
 
-    if (!user) {
+    if (!dbUser) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
