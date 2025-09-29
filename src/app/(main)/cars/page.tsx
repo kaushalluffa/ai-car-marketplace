@@ -1,5 +1,5 @@
 import { apiRoutesMap } from "@/lib/apiRoutesMap";
-
+import { CarFilters } from "./car-filters";
 
 export const metadata = {
   title: "Cars | Vehiql",
@@ -9,9 +9,9 @@ export const metadata = {
 async function getCarFilters() {
   try {
     const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-      }${apiRoutesMap.v1.cars.filters}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}${
+        apiRoutesMap.v1.cars.filters
+      }`,
       {
         cache: "no-store",
       }
@@ -28,7 +28,8 @@ async function getCarFilters() {
 
 export default async function CarsPage() {
   // Fetch filters data on the server
-  const filtersData = await getCarFilters();
+    const filtersData = await getCarFilters();
+    console.log(filtersData)
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -37,7 +38,7 @@ export default async function CarsPage() {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Filters Section */}
         <div className="w-full lg:w-80 flex-shrink-0">
-          {/* TODO: Implement CarFilters component */}
+          <CarFilters filters={filtersData.data} />
         </div>
 
         {/* Car Listings */}
