@@ -1,5 +1,6 @@
 import { apiRoutesMap } from "@/lib/apiRoutesMap";
 import { CarFilters } from "./car-filters";
+import { CarListings } from "./car-listing";
 
 export const metadata = {
   title: "Cars | Vehiql",
@@ -28,8 +29,8 @@ async function getCarFilters() {
 
 export default async function CarsPage() {
   // Fetch filters data on the server
-    const filtersData = await getCarFilters();
-    console.log(filtersData)
+  const filtersData = await getCarFilters();
+  console.log(filtersData);
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -43,7 +44,7 @@ export default async function CarsPage() {
 
         {/* Car Listings */}
         <div className="flex-1">
-          {/* TODO: Implement CarListings component */}
+          <CarListings />
         </div>
       </div>
     </div>

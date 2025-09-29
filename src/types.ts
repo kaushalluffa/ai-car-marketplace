@@ -116,24 +116,52 @@ export interface TestDriveBooking {
 }
 
 export interface FiltersData {
-    makes:         string[];
-    bodyTypes:     string[];
-    fuelTypes:     string[];
-    transmissions: string[];
-    priceRange:    PriceRange;
+  makes: string[];
+  bodyTypes: string[];
+  fuelTypes: string[];
+  transmissions: string[];
+  priceRange: PriceRange;
 }
 
 export interface PriceRange {
-    min: number;
-    max: number;
+  min: number;
+  max: number;
 }
 
-export interface CurrentFilter{
-    make: string;
-    bodyType: string;
-    fuelType: string;
-    transmission: string;
-    priceRange: number[];
-    priceRangeMin: number;
-    priceRangeMax: number;
+export interface CurrentFilter {
+  make: string;
+  bodyType: string;
+  fuelType: string;
+  transmission: string;
+  priceRange: number[];
+  priceRangeMin: number;
+  priceRangeMax: number;
+}
+
+export interface APICar {
+  id: string;
+  make: string;
+  model: string;
+  year: number;
+  price: number;
+  mileage: number;
+  color: string;
+  fuelType: string;
+  transmission: string;
+  bodyType: string;
+  seats: number;
+  description: string;
+  status: string;
+  featured: boolean;
+  images: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  wishlisted: boolean;
+}
+
+export interface APIPagination {
+  total: number;
+  page: number;
+  limit: number;
+  pages: number;
 }
