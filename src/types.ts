@@ -114,3 +114,26 @@ export interface TestDriveBooking {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface FiltersData {
+    makes:         string[];
+    bodyTypes:     string[];
+    fuelTypes:     string[];
+    transmissions: string[];
+    priceRange:    PriceRange;
+}
+
+export interface PriceRange {
+    min: number;
+    max: number;
+}
+
+export interface CurrentFilter{
+    make: string;
+    bodyType: string;
+    fuelType: string;
+    transmission: string;
+    priceRange: number[];
+    priceRangeMin: number;
+    priceRangeMax: number;
+}
