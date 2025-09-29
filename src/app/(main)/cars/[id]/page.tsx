@@ -7,7 +7,7 @@ async function getCarById(id: string) {
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-      }${apiRoutesMap.v1.cars}/${id}`,
+      }${apiRoutesMap.v1.cars.GET}/${id}`,
       {
         cache: "no-store",
       }

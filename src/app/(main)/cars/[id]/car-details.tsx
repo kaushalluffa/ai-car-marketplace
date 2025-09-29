@@ -15,8 +15,15 @@ import {
 import { useAuth } from "@clerk/nextjs";
 import { format } from "date-fns";
 import {
-  Calendar, Car, Currency, Fuel,
-  Gauge, Heart, LocateFixed, MessageSquare, Share2
+  Calendar,
+  Car,
+  Currency,
+  Fuel,
+  Gauge,
+  Heart,
+  LocateFixed,
+  MessageSquare,
+  Share2,
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -25,9 +32,15 @@ import { toast } from "sonner";
 import EmiCalculator from "./emi-calculator";
 import { apiRoutesMap } from "@/lib/apiRoutesMap";
 import { formatCurrency } from "@/lib/helper";
+import { APICar as CarTypes, WorkingHour } from "@/types";
 
-export function CarDetails({ car, testDriveInfo }) {
-  console.log(car, testDriveInfo);
+export function CarDetails({
+  car,
+  testDriveInfo,
+}: {
+  car: CarTypes;
+  testDriveInfo: any;
+}) {
   const router = useRouter();
   const { isSignedIn } = useAuth();
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -398,7 +411,7 @@ export function CarDetails({ car, testDriveInfo }) {
               <div className="space-y-2">
                 {testDriveInfo.dealership?.workingHours
                   ? testDriveInfo.dealership.workingHours
-                      .sort((a, b) => {
+                      .sort((a: WorkingHour, b: WorkingHour) => {
                         const days = [
                           "MONDAY",
                           "TUESDAY",
@@ -412,7 +425,7 @@ export function CarDetails({ car, testDriveInfo }) {
                           days.indexOf(a.dayOfWeek) - days.indexOf(b.dayOfWeek)
                         );
                       })
-                      .map((day) => (
+                      .map((day: WorkingHour) => (
                         <div
                           key={day.dayOfWeek}
                           className="flex justify-between text-sm"
@@ -437,7 +450,7 @@ export function CarDetails({ car, testDriveInfo }) {
                       "Friday",
                       "Saturday",
                       "Sunday",
-                    ].map((day, index) => (
+                    ].map((day: string, index: number) => (
                       <div key={day} className="flex justify-between text-sm">
                         <span className="text-gray-600">{day}</span>
                         <span>
