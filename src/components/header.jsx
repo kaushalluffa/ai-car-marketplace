@@ -1,11 +1,11 @@
-import { checkUser } from "@/lib/checkUser";
+import { ensureUserInDatabase } from "@/lib/userSync";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { ArrowLeft, CarFront, Heart, Layout, Zap } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
 export const Header = async ({ isAdminPage = false }) => {
-  const user = await checkUser();
+  const { user } = await ensureUserInDatabase();
   const isAdmin = user?.role === "ADMIN";
 
   return (
