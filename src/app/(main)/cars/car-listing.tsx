@@ -65,7 +65,6 @@ export function CarListings() {
         const data = await response.json();
 
         if (data.success) {
-          console.log(data, "data");
           setResult(data);
         } else {
           setError(data.error || "Failed to fetch cars");

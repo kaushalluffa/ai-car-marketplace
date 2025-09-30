@@ -30,7 +30,6 @@ async function getCarFilters() {
 export default async function CarsPage() {
   // Fetch filters data on the server
   const filtersData = await getCarFilters();
-  console.log(filtersData);
 
   return (
     <div className="container mx-auto px-4 py-12">
