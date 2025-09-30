@@ -44,7 +44,7 @@ export function CarDetails({
   const router = useRouter();
   const { isSignedIn } = useAuth();
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
-  const [isWishlisted, setIsWishlisted] = useState(car.wishlisted);
+  const [isWishlisted, setIsWishlisted] = useState<boolean>(car.wishlisted);
   const [savingCar, setSavingCar] = useState<boolean>(false);
 
   // Handle save car
