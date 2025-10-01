@@ -1,28 +1,22 @@
-import { ensureUserInDatabase } from "@/lib/userSync";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Car, Heart, Calendar, Sparkles } from "lucide-react";
+import { ensureUserInDatabase } from "@/lib/userSync";
+import { RedirectToSignIn } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { Calendar, Car, CheckCircle, Heart, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export default async function OnboardingPage() {
-  // Ensure user is created in database
-  const { user, error } = await ensureUserInDatabase();
+  const { isAuthenticated } = await auth();
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 flex items-center justify-center p-4">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Setup Error</h1>
-          <p className="text-gray-600 mb-6">
-            There was an issue setting up your account.
-          </p>
-          <Button asChild>
-            <Link href="/">Go to Home</Link>
-          </Button>
-        </div>
-      </div>
-    );
+  if (!isAuthenticated) {
+    return <RedirectToSignIn />;
   }
+  const user = await currentUser();
 
+  if (!user) {
+    return <RedirectToSignIn />;
+  }
+  await ensureUserInDatabase();
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 pt-5">
       <div className="container mx-auto px-4 py-20">
@@ -34,7 +28,7 @@ export default async function OnboardingPage() {
               Welcome to AutoVibe!
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Welcome, {user?.name || "Car Enthusiast"}!
+              Welcome, {user?.fullName || "Car Enthusiast"}!
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Your account has been successfully created. You're now ready to
@@ -96,15 +90,17 @@ export default async function OnboardingPage() {
             <div className="text-left max-w-md mx-auto space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">Name:</span>
-                <span className="font-semibold">{user?.name}</span>
+                <span className="font-semibold">{user?.fullName}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Email:</span>
-                <span className="font-semibold">{user?.email}</span>
+                <span className="font-semibold">
+                  {user?.primaryEmailAddressId}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Account Type:</span>
-                <span className="font-semibold capitalize">{user?.role}</span>
+                {/* <span className="font-semibold capitalize">{user}</span> */}
               </div>
             </div>
           </div>
