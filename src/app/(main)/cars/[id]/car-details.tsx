@@ -32,7 +32,7 @@ import { toast } from "sonner";
 import EmiCalculator from "./emi-calculator";
 import { apiRoutesMap } from "@/lib/apiRoutesMap";
 import { formatCurrency } from "@/lib/helper";
-import { APICar as CarTypes, WorkingHour } from "@/types";
+import { APICar as CarTypes, WorkingHour } from "@/types/main";
 
 export function CarDetails({
   car,

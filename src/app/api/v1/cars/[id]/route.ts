@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/prisma";
 import { serializeCarData } from "@/lib/helper";
-import { CarStatus } from "@/types";
+import { CarStatus } from "@/types/main";
 
 export async function GET(
   request: Request,

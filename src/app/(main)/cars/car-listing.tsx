@@ -18,7 +18,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Car } from "@/types";
+import { Car } from "@/types/main";
 import { apiRoutesMap } from "@/lib/apiRoutesMap";
 
 export function CarListings() {
@@ -61,7 +61,9 @@ export function CarListings() {
           limit: limit.toString(),
         });
 
-        const response = await fetch(`${apiRoutesMap.v1.cars.GET}?${params.toString()}`);
+        const response = await fetch(
+          `${apiRoutesMap.v1.cars.GET}?${params.toString()}`
+        );
         const data = await response.json();
 
         if (data.success) {

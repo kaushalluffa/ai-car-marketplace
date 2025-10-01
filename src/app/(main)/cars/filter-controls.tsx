@@ -3,7 +3,7 @@
 import { Check, X } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
-import { CurrentFilter, FiltersData } from "@/types";
+import { CurrentFilter, FiltersData } from "@/types/main";
 
 export const CarFilterControls = ({
   filters,
@@ -63,7 +63,9 @@ export const CarFilterControls = ({
             max={filters.priceRange.max}
             step={100}
             value={priceRange}
-            onValueChange={(value: number[]) => onFilterChange("priceRange", value)}
+            onValueChange={(value: number[]) =>
+              onFilterChange("priceRange", value)
+            }
           />
         </div>
         <div className="flex items-center justify-between">

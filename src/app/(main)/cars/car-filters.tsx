@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CarFilterControls } from "./filter-controls";
-import { CurrentFilter, FiltersData } from "@/types";
+import { CurrentFilter, FiltersData } from "@/types/main";
 
 export const CarFilters = ({ filters }: { filters: FiltersData }) => {
   const router = useRouter();

@@ -130,8 +130,8 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-      const { isAuthenticated } = await auth();
-      let dbUser = null;
+    const { isAuthenticated } = await auth();
+    let dbUser = null;
     if (!isAuthenticated) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

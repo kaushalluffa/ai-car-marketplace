@@ -1,4 +1,4 @@
-import { Car } from "@/types";
+import { Car } from "@/types/main";
 
 export const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat("en-US", {

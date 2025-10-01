@@ -144,8 +144,8 @@ export const withOptionalAuth = (
  */
 export const createApiResponse = (
   data: any,
-  success = true,
-  message = null
+  success: boolean = true,
+  message: string | null = null
 ) => {
   return NextResponse.json({
     success,
