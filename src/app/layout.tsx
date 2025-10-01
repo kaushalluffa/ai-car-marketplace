@@ -36,6 +36,12 @@ export default function RootLayout({
           footerActionLink: "text-purple-600 hover:text-purple-700",
         },
       }}
+      signInForceRedirectUrl={
+        process.env.NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL
+      }
+      signUpForceRedirectUrl={
+        process.env.NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL
+      }
     >
       <html lang="en">
         <body className={`${inter.className}`}>
