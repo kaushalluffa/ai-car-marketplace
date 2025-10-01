@@ -1,5 +1,6 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { db } from "./prisma";
+import updateClerkPublicMetadata from "./updateClerkPublicMetadata";
 
 /**
  * Ensures user exists in database and returns user data
@@ -27,7 +28,6 @@ export const ensureUserInDatabase = async () => {
 
     // If user doesn't exist, we need to get their data from Clerk
     // and create them in our database
-    const { currentUser } = await import("@clerk/nextjs/server");
     const clerkUser = await currentUser();
 
     if (!clerkUser) {
@@ -50,7 +50,9 @@ export const ensureUserInDatabase = async () => {
       },
     });
 
-    return { user: newUser, error: null };
+    const userClerkPublicMetadataRes = await updateClerkPublicMetadata();
+
+    return { user: newUser, error: null, userClerkPublicMetadataRes };
   } catch (error: any) {
     console.error("Error in ensureUserInDatabase:", error);
     return { user: null, error: error.message };
