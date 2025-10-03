@@ -3,7 +3,7 @@
 import { Check, X } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
-import { CurrentFilter, FiltersData } from "@/types/main";
+import { CurrentFilter, FiltersData } from "@/lib/types";
 
 export const CarFilterControls = ({
   filters,

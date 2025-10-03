@@ -18,9 +18,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Car } from "@/types/main";
+import { Car } from "@/lib/types";
 import { apiRoutesMap } from "@/lib/apiRoutesMap";
+import { searchVehicleInventory } from "@/app/actions/vehicle-discovery";
 
+const limit = 10;
 export function CarListings() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -28,7 +30,6 @@ export function CarListings() {
   const [loading, setLoading] = useState<boolean>(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const limit = 6;
 
   // Extract filter values from searchParams
   const search = searchParams.get("search") || "";
@@ -61,10 +62,7 @@ export function CarListings() {
           limit: limit.toString(),
         });
 
-        const response = await fetch(
-          `${apiRoutesMap.v1.cars.GET}?${params.toString()}`
-        );
-        const data = await response.json();
+        const data = await searchVehicleInventory(params);
 
         if (data.success) {
           setResult(data);

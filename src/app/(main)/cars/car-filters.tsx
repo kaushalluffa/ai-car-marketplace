@@ -22,9 +22,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CarFilterControls } from "./filter-controls";
-import { CurrentFilter, FiltersData } from "@/types/main";
+import { CurrentFilter, FiltersData } from "@/lib/types";
+import { CarSort } from "@/lib/enums";
 
-export const CarFilters = ({ filters }: { filters: FiltersData }) => {
+export const CarFilters = ({ filters }: { filters: any }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -250,9 +251,9 @@ export const CarFilters = ({ filters }: { filters: FiltersData }) => {
         </SelectTrigger>
         <SelectContent>
           {[
-            { value: "newest", label: "Newest First" },
-            { value: "priceAsc", label: "Price: Low to High" },
-            { value: "priceDesc", label: "Price: High to Low" },
+            { value: CarSort.NEWEST, label: "Newest First" },
+            { value: CarSort.PRICE_LOW_TO_HIGH, label: "Price: Low to High" },
+            { value: CarSort.PRICE_HIGH_TO_LOW, label: "Price: High to Low" },
           ].map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}

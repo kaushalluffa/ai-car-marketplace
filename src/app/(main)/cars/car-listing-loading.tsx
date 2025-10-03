@@ -5,7 +5,7 @@ const CarListingsLoading = () => {
     <>
       <Skeleton className="h-8 w-40 mb-5" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Array(6)
+        {Array(10)
           .fill(0)
           .map((_, i) => (
             <div key={i} className="rounded-lg border overflow-hidden">
