@@ -86,6 +86,8 @@ export interface UserTestDrive {
   id: string;
   status: BookingStatus[number];
   bookingDate: Date | string;
+  startTime: string;
+  endTime: string;
 }
 
 export interface TestDriveInfo {
@@ -110,6 +112,24 @@ export interface WorkingHour {
   openTime: string;
   closeTime: string;
   isOpen: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BookingDetails {
+  date: string;
+  timeSlot: string;
+  notes: string | null;
+}
+export interface ReservationItem {
+  id: string;
+  carId: string;
+  car: Car;
+  bookingDate: string;
+  startTime: string;
+  endTime: string;
+  status: string;
+  notes: string | null;
   createdAt: string;
   updatedAt: string;
 }
