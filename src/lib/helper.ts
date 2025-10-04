@@ -11,7 +11,7 @@ export const formatCurrency = (amount: number | string) => {
 };
 
 // Helper function to serialize car data
-export const serializeCarData = (car: Partial<Car & DateTimeData>, wishlisted = false) => {
+export const serializeCarData = (car: Car & DateTimeData, wishlisted = false) => {
   return {
     ...car,
     price: car.price ? parseFloat(car.price.toString()) : 0,
