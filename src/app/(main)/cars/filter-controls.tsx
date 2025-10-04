@@ -3,7 +3,7 @@
 import { Check, X } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
-import { CurrentFilter, FiltersData } from "@/lib/types";
+import { CurrentFilters, FiltersData } from "@/lib/types";
 
 export const CarFilterControls = ({
   filters,
@@ -12,7 +12,7 @@ export const CarFilterControls = ({
   onClearFilter,
 }: {
   filters: FiltersData;
-  currentFilters: CurrentFilter;
+  currentFilters: CurrentFilters;
   onFilterChange: (filterName: string, value: string | number[]) => void;
   onClearFilter: (filterName: string) => void;
 }) => {
@@ -22,28 +22,34 @@ export const CarFilterControls = ({
     {
       id: "make",
       title: "Make",
-      options: filters.makes.map((make) => ({ value: make, label: make })),
+      options: filters?.makes?.map((make) => ({ value: make, label: make })),
       currentValue: make,
       onChange: (value: string) => onFilterChange("make", value),
     },
     {
       id: "bodyType",
       title: "Body Type",
-      options: filters.bodyTypes.map((type) => ({ value: type, label: type })),
+      options: filters?.bodyTypes?.map((type) => ({
+        value: type,
+        label: type,
+      })),
       currentValue: bodyType,
       onChange: (value: string) => onFilterChange("bodyType", value),
     },
     {
       id: "fuelType",
       title: "Fuel Type",
-      options: filters.fuelTypes.map((type) => ({ value: type, label: type })),
+      options: filters?.fuelTypes?.map((type) => ({
+        value: type,
+        label: type,
+      })),
       currentValue: fuelType,
       onChange: (value: string) => onFilterChange("fuelType", value),
     },
     {
       id: "transmission",
       title: "Transmission",
-      options: filters.transmissions.map((type) => ({
+      options: filters?.transmissions?.map((type) => ({
         value: type,
         label: type,
       })),
@@ -51,7 +57,7 @@ export const CarFilterControls = ({
       onChange: (value: string) => onFilterChange("transmission", value),
     },
   ];
-
+  console.log("Filters in CarFilterControls:", filters);
   return (
     <div className="space-y-6">
       {/* Price Range */}
@@ -59,8 +65,8 @@ export const CarFilterControls = ({
         <h3 className="font-medium">Price Range</h3>
         <div className="px-2">
           <Slider
-            min={filters.priceRange.min}
-            max={filters.priceRange.max}
+            min={filters?.priceRange?.min}
+            max={filters?.priceRange?.max}
             step={100}
             value={priceRange}
             onValueChange={(value: number[]) =>
@@ -75,7 +81,7 @@ export const CarFilterControls = ({
       </div>
 
       {/* Filter Categories */}
-      {filterSections.map((section) => (
+      {filterSections?.map((section) => (
         <div key={section.id} className="space-y-3">
           <h4 className="text-sm font-medium flex justify-between">
             <span>{section.title}</span>
@@ -90,7 +96,7 @@ export const CarFilterControls = ({
             )}
           </h4>
           <div className="flex flex-wrap gap-2 max-h-60 overflow-y-auto pr-1 custom-scrollbar">
-            {section.options.map((option) => (
+            {section?.options?.map((option) => (
               <Badge
                 key={option.value}
                 variant={

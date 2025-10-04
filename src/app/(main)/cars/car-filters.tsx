@@ -1,18 +1,18 @@
 "use client";
 
-import { useCallback, useState, useEffect } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { Filter, X, Sliders } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetFooter,
 } from "@/components/ui/sheet";
+import { Filter, Sliders, X } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   Select,
@@ -21,9 +21,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CarFilterControls } from "./filter-controls";
-import { CurrentFilter, FiltersData } from "@/lib/types";
 import { CarSort } from "@/lib/enums";
+import { CarFilterControls } from "./filter-controls";
+import { CurrentFilters } from "@/lib/types";
 
 export const CarFilters = ({ filters }: { filters: any }) => {
   const router = useRouter();
@@ -35,12 +35,12 @@ export const CarFilters = ({ filters }: { filters: any }) => {
   const currentBodyType = searchParams.get("bodyType") || "";
   const currentFuelType = searchParams.get("fuelType") || "";
   const currentTransmission = searchParams.get("transmission") || "";
-  const currentMinPrice = searchParams.get("minPrice")
+  const currentMinPrice = !!searchParams.get("minPrice")
     ? parseInt(searchParams.get("minPrice") || "")
-    : filters.priceRange.min;
-  const currentMaxPrice = searchParams.get("maxPrice")
+    : filters?.priceRange?.min;
+  const currentMaxPrice = !!searchParams.get("maxPrice")
     ? parseInt(searchParams.get("maxPrice") || "")
-    : filters.priceRange.max;
+    : filters?.priceRange?.max;
   const currentSortBy = searchParams.get("sortBy") || "newest";
 
   // Local state for filters
@@ -79,8 +79,8 @@ export const CarFilters = ({ filters }: { filters: any }) => {
     bodyType,
     fuelType,
     transmission,
-    currentMinPrice > filters.priceRange.min ||
-      currentMaxPrice < filters.priceRange.max,
+    currentMinPrice > filters?.priceRange?.min ||
+      currentMaxPrice < filters?.priceRange?.max,
   ].filter(Boolean).length;
 
   // Update URL when filters change
@@ -91,9 +91,9 @@ export const CarFilters = ({ filters }: { filters: any }) => {
     if (bodyType) params.set("bodyType", bodyType);
     if (fuelType) params.set("fuelType", fuelType);
     if (transmission) params.set("transmission", transmission);
-    if (priceRange[0] > filters.priceRange.min)
+    if (priceRange[0] > filters?.priceRange?.min)
       params.set("minPrice", priceRange[0].toString());
-    if (priceRange[1] < filters.priceRange.max)
+    if (priceRange[1] < filters?.priceRange?.max)
       params.set("maxPrice", priceRange[1].toString());
     if (sortBy !== "newest") params.set("sortBy", sortBy);
 
@@ -117,8 +117,8 @@ export const CarFilters = ({ filters }: { filters: any }) => {
     sortBy,
     pathname,
     searchParams,
-    filters.priceRange.min,
-    filters.priceRange.max,
+    filters?.priceRange?.min,
+    filters?.priceRange?.max,
   ]);
 
   // Handle filter changes
@@ -160,7 +160,7 @@ export const CarFilters = ({ filters }: { filters: any }) => {
     setBodyType("");
     setFuelType("");
     setTransmission("");
-    setPriceRange([filters.priceRange.min, filters.priceRange.max]);
+    setPriceRange([filters?.priceRange?.min, filters?.priceRange?.max]);
     setSortBy("newest");
 
     // Keep search term if exists
@@ -176,14 +176,14 @@ export const CarFilters = ({ filters }: { filters: any }) => {
   };
 
   // Current filters object for the controls component
-  const currentFilters: CurrentFilter = {
+  const currentFilters: CurrentFilters = {
     make,
     bodyType,
     fuelType,
     transmission,
     priceRange,
-    priceRangeMin: filters.priceRange.min,
-    priceRangeMax: filters.priceRange.max,
+    priceRangeMin: filters?.priceRange?.min,
+    priceRangeMax: filters?.priceRange?.max,
   };
 
   return (

@@ -71,3 +71,13 @@ export interface DateTimeData {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface CurrentFilters {
+  make: string;
+  bodyType: string;
+  fuelType: string;
+  transmission: string;
+  priceRange: number[];
+  priceRangeMin?: number;
+  priceRangeMax?: number;
+}
