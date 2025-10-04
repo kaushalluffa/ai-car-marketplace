@@ -276,6 +276,8 @@ export async function retrieveVehicleDetails(id: string) {
         id: existingTestDrive.id,
         status: existingTestDrive.status,
         bookingDate: existingTestDrive.bookingDate.toISOString(),
+        startTime: existingTestDrive.startTime,
+        endTime: existingTestDrive.endTime,
       };
     }
 
