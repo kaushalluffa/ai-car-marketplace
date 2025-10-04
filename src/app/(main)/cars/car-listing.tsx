@@ -1,14 +1,15 @@
 "use client";
 
-import { JSX, useEffect, useState } from "react";
-import Link from "next/link";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info } from "lucide-react";
 import { CarCard } from "@/components/car-card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Info } from "lucide-react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { JSX, useEffect, useState } from "react";
 import CarListingsLoading from "./car-listing-loading";
 
+import { searchVehicleInventory } from "@/app/actions/vehicle-discovery";
 import {
   Pagination,
   PaginationContent,
@@ -19,8 +20,6 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Car } from "@/lib/types";
-import { apiRoutesMap } from "@/lib/apiRoutesMap";
-import { searchVehicleInventory } from "@/app/actions/vehicle-discovery";
 
 const limit = 10;
 export function CarListings() {
