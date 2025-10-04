@@ -81,3 +81,35 @@ export interface CurrentFilters {
   priceRangeMin?: number;
   priceRangeMax?: number;
 }
+
+export interface UserTestDrive {
+  id: string;
+  status: BookingStatus[number];
+  bookingDate: Date | string;
+}
+
+export interface TestDriveInfo {
+  dealership: DealerShip | null;
+  userTestDrive: UserTestDrive | null;
+}
+export interface DealerShip {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  workingHours: WorkingHour[];
+}
+
+export interface WorkingHour {
+  id: string;
+  dealershipId: string;
+  dayOfWeek: string;
+  openTime: string;
+  closeTime: string;
+  isOpen: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
