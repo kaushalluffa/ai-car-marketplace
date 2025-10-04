@@ -1,6 +1,9 @@
-import { Car } from "@/types/main";
+import { Car, DateTimeData } from "./types";
 
-export const formatCurrency = (amount: number) => {
+export const formatCurrency = (amount: number | string) => {
+  if (typeof amount === "string") {
+    amount = parseFloat(amount);
+  }
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -8,7 +11,7 @@ export const formatCurrency = (amount: number) => {
 };
 
 // Helper function to serialize car data
-export const serializeCarData = (car: Car, wishlisted = false) => {
+export const serializeCarData = (car: Partial<Car & DateTimeData>, wishlisted = false) => {
   return {
     ...car,
     price: car.price ? parseFloat(car.price.toString()) : 0,
