@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Car } from "@/types/main";
+import { Car } from "@/lib/types";
 
 export const CarCard = ({ car }: { car: Car & { wishlisted: boolean } }) => {
   const { isSignedIn } = useAuth();
