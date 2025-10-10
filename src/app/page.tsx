@@ -16,14 +16,17 @@ import {
   Sparkles,
   Star,
   TrendingUp,
-  Users
+  Users,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { fetchFeaturedVehicles } from "./actions/vehicle-discovery";
+import { CarCard } from "@/components/car-card";
+import { HomeSearch } from "@/components/search";
 
 export default async function Home() {
-  const featuredCars = []
+  const featuredCarsData = await fetchFeaturedVehicles();
+  const featuredCars = featuredCarsData.success ? featuredCarsData.data : [];
 
   return (
     <div className="flex flex-col pt-20">
@@ -55,8 +58,8 @@ export default async function Home() {
             </p>
           </div>
 
-          {/* TODO: Search Component (Client) */}
-          
+          {/* Search Component (Client) */}
+          <HomeSearch />
 
           {/* Stats */}
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
@@ -116,7 +119,8 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* TODO: Featured Cars */}
+            {featuredCars &&
+              featuredCars.map((car) => <CarCard key={car.id} car={car} />)}
           </div>
         </div>
       </section>
@@ -139,25 +143,23 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {carMakes.map((make: typeof carMakes[number]) => (
+            {carMakes.map((make) => (
               <Link
-                key={make.name}
-                href={`/cars?make=${make.name}`}
+                key={make}
+                href={`/cars?make=${make}`}
                 className="group bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 hover:border-purple-200 hover:-translate-y-1"
               >
                 <div className="h-20 w-auto mx-auto mb-4 relative">
                   <Image
-                    src={
-                      make.image || `/make/${make.name.toLowerCase()}.webp`
-                    }
-                    alt={make.name}
+                    src=""
+                    alt={make}
                     fill
                     style={{ objectFit: "contain" }}
                     className="group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
                 <h3 className="font-semibold text-gray-800 group-hover:text-purple-600 transition-colors">
-                  {make.name}
+                  {make}
                 </h3>
               </Link>
             ))}
@@ -261,9 +263,7 @@ export default async function Home() {
               >
                 <div className="overflow-hidden rounded-2xl h-32 mb-4 relative shadow-lg group-hover:shadow-xl transition-all duration-300">
                   <Image
-                    src={
-                      type.image || `/body/${type.name.toLowerCase()}.webp`
-                    }
+                    src=""
                     alt={type.name}
                     fill
                     className="object-cover group-hover:scale-110 transition duration-500"
